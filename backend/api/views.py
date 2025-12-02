@@ -8,18 +8,30 @@ from .models import *
 # Create your views here.
 
 
-class UserView(generics.ListCreateAPIView):
+class CreateUserView(generics.CreateAPIView):
+
     """
-    View to List and create users.
+    View to create a new user.
 
     HTTP Methods:
-    - GET: List all users
     - POST: Create a new user
 
     Permissions:
     - AllowAny: Any user (authenticated or not) can access this view.
     """
-
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+class UserView(generics.ListAPIView):
+    """
+    View to list all users.
+
+    HTTP Methods:
+    - GET: List all users
+
+    Permissions:
+    - AllowAny: Any user (authenticated or not) can access this view.
+    """
     queryset = User.objects.all()
     serializer_class = UserSerializer
